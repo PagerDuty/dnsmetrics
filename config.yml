@@ -1,0 +1,14 @@
+check_interval: 60s
+statsd_address: localhost:8125
+
+providers:
+  - dyn
+  - ns1
+
+dyn:
+  customer: joe
+  username: admin
+  password: hunter2
+
+ns1:
+  api_key: your_ns1_api_key
