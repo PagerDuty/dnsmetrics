@@ -1,9 +1,9 @@
-*DNSmetrics* connects to your accounts at multiple managed DNS providers 
-using their APIs and emits standardized metrics in statsd format for easy 
+*DNSmetrics* connects to your accounts at multiple managed DNS providers
+using their APIs and emits standardized metrics in statsd format for easy
 ingestion into your monitoring solution of choice.
 
 While any DNS provider has a control panel, their UI can be incomplete
-and they might not have alerting on metrics that are important to you. 
+and they might not have alerting on metrics that are important to you.
 Furthermore, if you use several providers for redundancy, there is no way
 to have one dashboard that shows unified health of your DNS architecture.
 
@@ -31,7 +31,7 @@ as a service, collecting and sending metrics every `check_interval`.
 # List of Metrics
 
 All metrics are tagged with `zone` and `provider` tags. Zone is the DNS
-zone for the metric and provider is the DNS provider. 
+zone for the metric and provider is the DNS provider.
 
 All metrics have the prefix `dnsmetrics`.
 
@@ -53,6 +53,12 @@ Not all providers support all metrics described below.
   presumably no longer being served by the provider.
 
 - *`zone.secondary.sec_since_last_xfr`* - time since last zone transfer.
+
+# Monitoring
+
+A DataDog dashboard specification with some of the collected metrics can
+be found in `monitoring/datadog`. It can be imported
+[using the API](https://gist.github.com/lrascao/f57312ff33b799c4c0db56b10e80fe26).
 
 # Contributing
 

@@ -1,0 +1,98 @@
+{
+  "title": "DNS",
+  "description": "DNSmetrics timeboard for DataDog by maxvt@pagerduty.com",
+  "graphs": [
+    {
+      "definition": {
+        "viz": "timeseries",
+        "requests": [
+          {
+            "q": "sum:dnsmetrics.zone.qps{*} by {zone}",
+            "aggregator": "avg",
+            "conditional_formats": [],
+            "type": "area"
+          }
+        ]
+      },
+      "title": "Cumulative QPS"
+    },
+    {
+      "definition": {
+        "viz": "timeseries",
+        "requests": [
+          {
+            "q": "sum:dnsmetrics.zone.qps{provider:ns1} / sum:dnsmetrics.zone.qps{*} * 100, sum:dnsmetrics.zone.qps{provider:dyn} / sum:dnsmetrics.zone.qps{*} * 100",
+            "aggregator": "avg",
+            "conditional_formats": [],
+            "type": "area"
+          }
+        ]
+      },
+      "title": "Providers share for YourDomain.com"
+    },
+    {
+      "definition": {
+        "viz": "timeseries",
+        "requests": [
+          {
+            "q": "min:dnsmetrics.zone.secondary.is_ok{*} by {zone}",
+            "aggregator": "avg",
+            "conditional_formats": [],
+            "type": "area"
+          }
+        ]
+      },
+      "title": "Secondary Zones Status (1=ok)"
+    },
+    {
+      "definition": {
+        "viz": "timeseries",
+        "requests": [
+          {
+            "q": "max:dnsmetrics.zone.secondary.sec_since_last_xfr{*} by {zone}",
+            "aggregator": "avg",
+            "conditional_formats": [],
+            "type": "line"
+          }
+        ],
+        "markers": [
+          {
+            "type": "error dashed",
+            "val": "4000",
+            "value": "y = 4000"
+          }
+        ]
+      },
+      "title": "Time Since Last Replication of Secondary Zones, sec"
+    },
+    {
+      "definition": {
+        "viz": "toplist",
+        "requests": [
+          {
+            "q": "top(max:dnsmetrics.zone.record_count{*} by {zone}, 10, 'mean', 'desc')",
+            "style": {
+              "palette": "dog_classic"
+            },
+            "conditional_formats": []
+          }
+        ]
+      },
+      "title": "Current record counts"
+    },
+    {
+      "definition": {
+        "viz": "timeseries",
+        "requests": [
+          {
+            "q": "diff(max:dnsmetrics.zone.record_count{*} by {zone})",
+            "aggregator": "avg",
+            "conditional_formats": [],
+            "type": "line"
+          }
+        ]
+      },
+      "title": "Changes in record counts by zone"
+    }
+  ]
+}
