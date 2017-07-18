@@ -4,16 +4,16 @@ import (
 	"encoding/csv" // for QPS report parsing
 	"errors"
 	"fmt"
-	log "github.com/Sirupsen/logrus"
-	"github.com/nesv/go-dynect/dynect"
-	statsd "gopkg.in/alexcesaro/statsd.v2"
 	"io"
+	"net/url"
 	"sort"
 	"strconv"
 	"strings"
-	//"net/http"
-	"net/url"
 	"time"
+
+	"github.com/nesv/go-dynect/dynect"
+	log "github.com/sirupsen/logrus"
+	"gopkg.in/alexcesaro/statsd.v2"
 )
 
 type DynConfig struct {
@@ -179,7 +179,7 @@ func parseQpsCsv(csvInput string) (raw map[string]map[string]float64, err error)
 func extractSecondLastQps(raw map[string]map[string]float64) map[string]float64 {
 	keys := make([]string, 0, len(raw))
 	i := 0
-	for key, _ := range raw {
+	for key := range raw {
 		keys = append(keys, key)
 		i++
 	}
