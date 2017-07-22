@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	log "github.com/Sirupsen/logrus"
-	statsd "gopkg.in/alexcesaro/statsd.v2"
 	"net/http"
 	"net/url"
 	"time"
+
+	log "github.com/sirupsen/logrus"
+	"gopkg.in/alexcesaro/statsd.v2"
 )
 
 type NS1Config struct {

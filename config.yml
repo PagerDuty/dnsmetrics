@@ -1,5 +1,10 @@
 check_interval: 60s
 statsd_address: localhost:8125
+## Statsd Tag Format
+## defaults to 2 if not set
+## 1 - InfluxDB
+## 2 - Datadog
+#statsd_tag_format: 2
 
 providers:
   - dyn

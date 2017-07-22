@@ -3,9 +3,10 @@ package main
 import (
 	"bufio"
 	"bytes"
-	log "github.com/Sirupsen/logrus"
-	statsd "gopkg.in/alexcesaro/statsd.v2"
 	"net"
+
+	log "github.com/sirupsen/logrus"
+	"gopkg.in/alexcesaro/statsd.v2"
 )
 
 func CreateStatsdReporter(cfg *Config, once bool) (rep *statsd.Client, err error) {
@@ -17,7 +18,10 @@ func CreateStatsdReporter(cfg *Config, once bool) (rep *statsd.Client, err error
 		address = cfg.StatsdAddress
 	}
 
-	rep, err = statsd.New(statsd.Prefix("dnsmetrics"), statsd.Address(address), statsd.TagsFormat(statsd.Datadog))
+	rep, err = statsd.New(
+		statsd.Prefix("dnsmetrics"),
+		statsd.Address(address),
+		statsd.TagsFormat(cfg.StatsdTagFormat))
 	return
 }
 

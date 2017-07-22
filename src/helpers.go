@@ -1,10 +1,8 @@
 package main
 
-func BoolToInt(b bool) (i int) {
+func BoolToInt(b bool) int {
 	if b {
-		i = 1
-	} else {
-		i = 0
+		return 1
 	}
-	return
+	return 0
 }

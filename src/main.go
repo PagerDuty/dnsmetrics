@@ -2,11 +2,12 @@ package main
 
 import (
 	"flag"
-	log "github.com/Sirupsen/logrus"
-	statsd "gopkg.in/alexcesaro/statsd.v2"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"time"
+
+	log "github.com/sirupsen/logrus"
+	"gopkg.in/alexcesaro/statsd.v2"
+	"gopkg.in/yaml.v2"
 )
 
 type Config struct {
@@ -14,8 +15,9 @@ type Config struct {
 	NS1              NS1Config
 	Dyn              DynConfig
 	CheckInterval    time.Duration
-	CheckIntervalStr string `yaml:"check_interval"`
-	StatsdAddress    string `yaml:"statsd_address"`
+	CheckIntervalStr string           `yaml:"check_interval"`
+	StatsdAddress    string           `yaml:"statsd_address"`
+	StatsdTagFormat  statsd.TagFormat `yaml:"statsd_tag_format"`
 }
 
 type DNSProvider interface {
@@ -41,6 +43,13 @@ func loadConfig(fileName *string) (cfg *Config) {
 
 	if cfg.StatsdAddress == "" {
 		cfg.StatsdAddress = "localhost:8125"
+	}
+
+	if cfg.StatsdTagFormat == 0 {
+		cfg.StatsdTagFormat = statsd.Datadog
+	} else if cfg.StatsdTagFormat > 0 &&
+		(cfg.StatsdTagFormat != statsd.Datadog && cfg.StatsdTagFormat != statsd.InfluxDB) {
+		log.Fatalln("Invalid statsd tag format. Valid options:", statsd.InfluxDB, statsd.Datadog)
 	}
 
 	return
@@ -95,7 +104,7 @@ func main() {
 		collectMetrics(cfg, rep)
 	} else {
 		ticker := time.NewTicker(cfg.CheckInterval)
-		for _ = range ticker.C {
+		for range ticker.C {
 			collectMetrics(cfg, rep)
 		}
 	}
