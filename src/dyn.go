@@ -143,6 +143,11 @@ func (p DynProvider) getQpsReport() (qpsForZone map[string]float64, err error) {
 		return qpsForZone, err
 	}
 
+	if len(raw) == 0 {
+		err = errors.New("No QPS data received")
+		return
+	}
+
 	// Return the most recent complete-period set of metrics (second last)
 	qpsForZone = extractSecondLastQps(raw)
 	return
