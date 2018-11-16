@@ -50,9 +50,7 @@ func TestParseQpsCsv(t *testing.T) {
 	out, err := parseQpsCsv(input)
 	if err != nil {
 		t.Error("Received error from parseQpsCsv ", err)
-	} else {
-		if !reflect.DeepEqual(out, expected) {
-			t.Error("Output of parseQpsCsv does not match expectations")
-		}
+	} else if !reflect.DeepEqual(out, expected) {
+		t.Error("Output of parseQpsCsv does not match expectations")
 	}
 }
