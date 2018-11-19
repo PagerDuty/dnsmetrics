@@ -34,7 +34,7 @@ ifneq ($(strip $(DOCKER_TAG)),)
 	docker build -t ${DOCKER_NAME} .
 ifneq (${DOCKER_USERNAME},)
 ifneq (${DOCKER_PASSWORD},)
-		docker login -u ${DOCKER_USERNAME} -p "${DOCKER_PASSWORD}"
+	docker login -u ${DOCKER_USERNAME} -p "${DOCKER_PASSWORD}"
 endif
 endif
 	docker push ${DOCKER_NAME}
