@@ -142,9 +142,10 @@ func (p DynProvider) getQpsReport() (qpsForZone map[string]float64, err error) {
 	if err != nil {
 		return qpsForZone, err
 	}
+	log.Debug("Zone QPS file contained ", len(raw), " periods:\n", q.Data.Csv)
 
-	if len(raw) == 0 {
-		err = errors.New("No QPS data received")
+	if len(raw) < 2 {
+		err = errors.New(fmt.Sprintf("Not enough QPS data received (need 2 periods, got %d)", len(raw)))
 		return
 	}
 
