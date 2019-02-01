@@ -128,7 +128,7 @@ func (p DynProvider) getQpsReport() (qpsForZone map[string]float64, err error) {
 
 	// Fetch metrics from the API
 	args := map[string]string{
-		"start_ts":  strconv.FormatInt(time.Now().Unix()-15*60, 10),
+		"start_ts":  strconv.FormatInt(time.Now().Unix()-20*60, 10),
 		"end_ts":    strconv.FormatInt(time.Now().Unix(), 10),
 		"breakdown": "zones",
 	}
