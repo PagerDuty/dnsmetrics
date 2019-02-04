@@ -1,4 +1,4 @@
-# See also https://circleci.com/docs/2.0/language-go/ 
+# See also https://circleci.com/docs/2.0/language-go/
 version: 2
 jobs:
   build:
@@ -7,4 +7,4 @@ jobs:
     working_directory: /go/src/github.com/PagerDuty/dnsmetrics
     steps:
       - checkout
-      - run: make
+      - run: make DOCKER_FILE=Dockerfile.internal

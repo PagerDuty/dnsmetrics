@@ -1,8 +1,8 @@
-FROM bitnami/minideb:stretch
+FROM pagerduty-docker.jfrog.io/ubuntu:18.04
 
 RUN apt-get update && \
-    apt-get upgrade -y && \
-    install_packages ca-certificates
+    apt-get -y install ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY dnsmetrics /usr/bin/dnsmetrics
 
